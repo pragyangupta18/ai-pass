@@ -87,3 +87,7 @@ if __name__ == "__main__":
             process_pdf_file(file_path)
     else:
         print("No files selected.")
+
+
+# pip3 install PyPDF2
+# pip3 install tkinter
