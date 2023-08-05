@@ -38,7 +38,7 @@ def find_total_amount(text):
     pattern = r'Total Amount\s*` ([\d.]+)'
     match = re.search(pattern, text)
     if match:
-        return match.group(1)
+        return float(match.group(1))
     return None
 
 def find_gst_registration_number(text):
@@ -49,8 +49,8 @@ def find_gst_registration_number(text):
     return None
 
 def find_taxes_amount(text):
-    pattern = r'Taxes \(GST\) - - ` ([\d.]+)'
-    match = re.search(pattern, text)
+    pattern = r'Taxes \(GST\).*?` ([\d.]+)'
+    match = re.search(pattern, text, re.IGNORECASE | re.DOTALL)
     if match:
         return float(match.group(1))
     return None
@@ -64,7 +64,7 @@ def process_pdf_file(file_path):
         total_amount = find_total_amount(pdf_text)
         gst_registration_number = find_gst_registration_number(pdf_text)
         taxes_amount = find_taxes_amount(pdf_text)
-        taxes_half = taxes_amount / 2 if taxes_amount is not None else 0.0
+        taxes_half = taxes_amount / 2
 
         print(f"File: {file_path}")
         print(f"Bill NO: {bill_number}")
